@@ -15,7 +15,8 @@ const options = {
 	defaultDate: new Date(),
 	minuteIncrement: 1,
 	onClose(selectedDates) {
-		console.log(selectedDates[0]);
+		userDate = selectedDates[0].getTime();
+		checkedCorrectDate(userDate);
 	},
 };
 
@@ -26,28 +27,27 @@ let userDate = 0;
 
 flatpickr(input, options);
 
+
+
+function checkedCorrectDate(date) {
+	const targetTime = deadlineTime(date);
+
+	if (targetTime <= 0) {
+		return Notiflix.Notify.failure('Please choose a date in the future');
+	}
+
+	startBtn.removeAttribute('disabled');
+}
+
 function deadlineTime(date) {
 	const currentDate = new Date().getTime();
 	const countDownTime = date - currentDate;
 	return countDownTime;
 }
 
-function checkedCorrectDate() {
-	const targetTime = deadlineTime(date);
-
-	if (targetTime <= 0) {
-		return Notiflix.Notify.failure('Please choose a date in the future');
-	}
-	
-	startBtn.removeAttribute('disabled');
-	}
-
-
-
 function addLeadingZero(value) {
 	return value.toString().padStart(2, '0');
 }
-
 
 function onClick() {
 	const intervalTimer = setInterval(() => {
