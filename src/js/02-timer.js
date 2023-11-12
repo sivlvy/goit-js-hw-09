@@ -9,9 +9,6 @@ const timerHours = document.querySelector('[data-hours]');
 const timerMinutes = document.querySelector('[data-minutes]');
 const timerSeconds = document.querySelector('[data-seconds]');
 
-startBtn.setAttribute('disabled', 'true');
-let userDate = 0;
-
 const options = {
 	enableTime: true,
 	time_24hr: true,
@@ -22,17 +19,12 @@ const options = {
 	},
 };
 
+startBtn.addEventListener('click', onClick);
+
+startBtn.setAttribute('disabled', true);
+let userDate = 0;
+
 flatpickr(input, options);
-
-function checkedCorrectDate(date) {
-	const targetTime = deadlineTime(date);
-
-	if (targetTime <= 0) {
-		return Notiflix.Notify.failure('Please choose a date in the future');
-	}
-
-	startBtn.removeAttribute('disabled');
-}
 
 function deadlineTime(date) {
 	const currentDate = new Date().getTime();
@@ -40,9 +32,22 @@ function deadlineTime(date) {
 	return countDownTime;
 }
 
+function checkedCorrectDate() {
+	const targetTime = deadlineTime(date);
+
+	if (targetTime <= 0) {
+		return Notiflix.Notify.failure('Please choose a date in the future');
+	}
+	
+	startBtn.removeAttribute('disabled');
+	}
+
+
+
 function addLeadingZero(value) {
 	return value.toString().padStart(2, '0');
 }
+
 
 function onClick() {
 	const intervalTimer = setInterval(() => {
@@ -51,6 +56,7 @@ function onClick() {
 		if (timeLeft <= 1000) {
 			clearInterval(intervalTimer);
 		}
+
 		function convertMs(ms) {
 			const second = 1000;
 			const minute = second * 60;
@@ -67,8 +73,7 @@ function onClick() {
 			timerMinutes.textContent = addLeadingZero(minutes);
 			timerSeconds.textContent = addLeadingZero(seconds);
 		}
+
 		convertMs(timeLeft);
 	}, 1000);
 }
-
-startBtn.addEventListener('click', onClick);
