@@ -12,9 +12,9 @@ function onSubmit(e) {
 	e.preventDefault();
 	createPromiseBtn.setAttribute('disabled', true);
 
-	let delay = inputDelay.value;
-	let step = inputStep.value;
-	let amount = inputAmount.value;
+	let delay = Number(inputDelay.value);
+	let step = Number(inputStep.value);
+	let amount = Number(inputAmount.value);
 
 	for (let position = 1; position <= amount; position += 1) {
 		createPromise(position, delay)
@@ -28,8 +28,15 @@ function onSubmit(e) {
 					`❌ Rejected promise ${position} in ${delay}ms`
 				);
 			});
+			
+	delay += step;
 	}
+	createPromiseForm.reset();
+	setTimeout(() => {
+		createPromiseBtn.removeAttribute('disabled');
+	}, 1000)
 }
+
 
 function createPromise(position, delay) {
 	return new Promise((res, rej) => {

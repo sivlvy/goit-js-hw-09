@@ -29,7 +29,7 @@ flatpickr(input, options);
 
 
 
-function checkedCorrectDate(date) {
+function checkedCorrectDate(date ) {
 	const targetTime = deadlineTime(date);
 
 	if (targetTime <= 0) {
