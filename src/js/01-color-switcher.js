@@ -4,6 +4,7 @@ const refs = {
 };
 const body = document.querySelector('body');
 
+let id;
 refs.startBtn.addEventListener('click', handleClickStartBtn);
 refs.stopBtn.addEventListener('click', handleClickStopBtn);
 

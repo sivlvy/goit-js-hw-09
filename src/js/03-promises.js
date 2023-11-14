@@ -28,15 +28,14 @@ function onSubmit(e) {
 					`❌ Rejected promise ${position} in ${delay}ms`
 				);
 			});
-			
-	delay += step;
+
+		delay += step;
 	}
 	createPromiseForm.reset();
 	setTimeout(() => {
 		createPromiseBtn.removeAttribute('disabled');
-	}, 1000)
+	}, 1000);
 }
-
 
 function createPromise(position, delay) {
 	return new Promise((res, rej) => {
